@@ -38,32 +38,37 @@ class Gallery extends Component {
 
   render(){
     const { tracks } = this.props;
+    if(tracks.length === 0){
+      return(
+        <div className="fs-4">No Tracks..</div>
+      )
+    }else{
+      try{return(
+        <div className="">
+          {
+            tracks.map((track, k) => {
+              return(
+                <div key={k} className="track">
+                  <img
+                    src={track.album.images[0].url}
+                    alt="track cover art"
+                    className="track-img"/>
 
-    return(
-      <div className="">
-        {
-          tracks.map((track, k) => {
-            return(
-              <div key={k} className="track">
-                <img
-                  src={track.album.images[0].url}
-                  alt="track cover art"
-                  className="track-img"/>
-
-                <div className="track-btn" onClick={() => this.playAudio(track.preview_url)}>
-                  {
-                    this.state.playingURL === track.preview_url && this.state.playing
-                    ? <button className="track-btn-inner"><Pause width="50px" height="50px" /></button>
-                    : <button className="track-btn-inner"><Play width="50px" height="50px" /></button>
-                  }
+                  <div className="track-btn" onClick={() => this.playAudio(track.preview_url)}>
+                    {
+                      this.state.playingURL === track.preview_url && this.state.playing
+                      ? <button className="track-btn-inner"><Pause width="50px" height="50px" /></button>
+                      : <button className="track-btn-inner"><Play width="50px" height="50px" /></button>
+                    }
+                  </div>
+                  <div className="track-text">{track.name}</div>
                 </div>
-                <div className="track-text">{track.name}</div>
-              </div>
-            )
-          })
-        }
-      </div>
-    )
+              )
+            })
+          }
+        </div>
+      )}catch(err){return <div className="fs-4">No Tracks..</div>}
+    }
   }
 }
 

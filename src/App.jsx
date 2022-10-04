@@ -19,30 +19,30 @@ class App extends Component {
     const options = {
     	method: 'GET',
     	headers: {
-    		'X-RapidAPI-Key': '072ba40c08mshac3c26057ea0b61p13b25djsn9b5df87a4ffc',
+    		'X-RapidAPI-Key': 'eff9b003c1msh72e6ffc6b0d9248p1e560ajsna9478b013e33',
     		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
     	}
     };
 
     if(this.state.query !== ""){
-      fetch(`${BASE_URL}search/?q=${this.state.query}&type=artist`, options)
+      fetch(`${BASE_URL}search/?q=${this.state.query}&type=artist,tracks`, options)
     	.then(response => response.json())
     	.then(json => {
-        const tracks = json.tracks.items;
-        const tracksIds = []
-        for (let i = 0; i < tracks.length; i++) {tracksIds[i] = tracks[i].data.id}
+        const searchTracks = json.tracks.items;
+        const searchArtists = json.artists.items;
 
-        if (tracksIds.length > 0) {
+        if(searchTracks.length>0){
+          const tracksIds = []
+          for (let i = 0; i < searchTracks.length; i++) {tracksIds[i] = searchTracks[i].data.id}
           fetch(`${BASE_URL}tracks/?ids=${tracksIds}`, options)
           	.then(response => response.json())
           	.then(json => this.setState({tracks: json.tracks}))
           	.catch(err => console.error(err));
         }
-        const artists = json.artists.items;
-        const artistsIds = []
-        for (let i = 0; i < 5; i++) {artistsIds[i] = artists[i].data.uri.split(":")[2]}
 
-        if (tracksIds.length > 0) {
+        if(searchArtists.length>0){
+          const artistsIds = []
+          for (let i = 0; i < 5; i++) {artistsIds[i] = searchArtists[i].data.uri.split(":")[2]}
           fetch(`${BASE_URL}artists/?ids=${artistsIds}`, options)
           	.then(response => response.json())
           	.then(json => this.setState({artists: json.artists}))
@@ -73,16 +73,14 @@ class App extends Component {
 
         {
           (this.state.artists.length > 0 || this.state.tracks.length > 0) &&
-          <div className="">
-            <div className="fs-2 mt-3 text-start">Artists</div>
-            <Profile artists={this.state.artists}/>
-            <hr />
-
-            <div className="fs-2 text-start">Tracks</div>
-            <Gallery tracks={this.state.tracks}/>
-          </div>
+          <>
+          <div className="fs-2 mt-3 text-start">Artists</div>
+          <Profile artists={this.state.artists}/>
+          <hr />
+          <div className="fs-2 text-start">Tracks</div>
+          <Gallery tracks={this.state.tracks}/>
+          </>
         }
-
 
       </div>
     )

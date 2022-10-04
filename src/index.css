@@ -1,13 +1,84 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body{
+  background-color: #000;
+  color: #fff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.avatar{
+  width: 150px;
+  height: 150px;
+  border: 3px solid #fff;
+  border-radius: 75px;
+  object-fit: cover;
+  transition: transform .2s;
+}
+
+.avatar:hover{
+  transform: scale(1.1);
+}
+
+
+.track{
+  display: inline-block;
+  position: relative;
+  margin: 10px;
+  transition: transform .2s;
+}
+
+.track:hover{
+  transform: scale(1.1);
+}
+
+.track-img{
+  width: 200px;
+  height: 200px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  object-fit: cover;
+}
+
+.track-text{
+  background: black;
+  opacity: 0.75;
+  width: 196px;
+  margin-left: 2px;
+  text-align: center;
+  padding: 5px;
+  position: absolute;
+  font-size: 15px;
+  bottom: 10px;
+}
+
+.track-btn{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 0;
+  margin: 20px;
+  padding: 50px;
+}
+
+.track-btn:hover{
+  opacity: 0.8;
+  animation-name: fade-in;
+  animation-duration: 0.5s;
+}
+
+@keyframes fade-in {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 0.8;
+  }
+}
+
+.track-btn-inner{
+  background-color: black;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
 }

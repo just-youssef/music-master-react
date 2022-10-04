@@ -62,7 +62,7 @@ class App extends Component {
           <InputGroup>
             <FormControl
               type="text"
-              placeholder="Search for an Artist..."
+              placeholder="Search your favourite artist/song..."
               value={this.state.query}
               onChange={event => this.setState({query: event.target.value})}
               onKeyPress={event => event.key==="Enter" && this.search()}
